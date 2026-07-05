@@ -1,0 +1,23 @@
+description: Failover Aurora Cluster
+
+schemaVersion: '0.3'
+
+parameters:
+
+  ClusterIdentifier:
+
+    type: String
+
+mainSteps:
+
+- name: Failover
+
+  action: aws:executeAwsApi
+
+  inputs:
+
+    Service: rds
+
+    Api: FailoverDBCluster
+
+    DBClusterIdentifier: "{{ ClusterIdentifier }}"
