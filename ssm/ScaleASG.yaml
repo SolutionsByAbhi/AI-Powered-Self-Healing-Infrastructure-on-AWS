@@ -1,0 +1,25 @@
+description: Scale Auto Scaling Group
+
+schemaVersion: '0.3'
+
+parameters:
+
+  AutoScalingGroup:
+
+    type: String
+
+mainSteps:
+
+- name: ScaleOut
+
+  action: aws:executeAwsApi
+
+  inputs:
+
+    Service: autoscaling
+
+    Api: SetDesiredCapacity
+
+    AutoScalingGroupName: "{{ AutoScalingGroup }}"
+
+    DesiredCapacity: 5
