@@ -1,0 +1,38 @@
+groups:
+
+- name: Infrastructure
+
+  rules:
+
+  - alert: HighCPU
+
+    expr: avg(rate(node_cpu_seconds_total{mode!="idle"}[5m])) > 0.80
+
+    for: 2m
+
+    labels:
+
+      severity: warning
+
+    annotations:
+
+      summary: High CPU Usage
+
+  - alert: HighMemory
+
+    expr: node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes < 0.20
+
+    for: 5m
+
+    labels:
+
+      severity: critical
+
+  - alert: HighLatency
+
+    expr: histogram_quantile(
+      0.95,
+      http_request_duration_seconds_bucket
+    ) > 1
+
+    for: 1m
