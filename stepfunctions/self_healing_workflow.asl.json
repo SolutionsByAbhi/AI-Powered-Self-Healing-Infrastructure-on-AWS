@@ -1,0 +1,92 @@
+{
+  "Comment": "AI Self Healing Workflow",
+  "StartAt": "DecisionEngine",
+  "States": {
+
+    "DecisionEngine": {
+
+      "Type": "Task",
+
+      "Resource": "arn:aws:states:::lambda:invoke",
+
+      "Parameters": {
+
+        "FunctionName": "decision-engine",
+
+        "Payload.$": "$"
+
+      },
+
+      "Next": "RiskAssessment"
+
+    },
+
+    "RiskAssessment": {
+
+      "Type": "Choice",
+
+      "Choices": [
+
+        {
+
+          "Variable": "$.Payload.risk",
+
+          "StringEquals": "LOW",
+
+          "Next": "ExecuteRunbook"
+
+        },
+
+        {
+
+          "Variable": "$.Payload.risk",
+
+          "StringEquals": "HIGH",
+
+          "Next": "Approval"
+
+        }
+
+      ]
+
+    },
+
+    "Approval": {
+
+      "Type": "Task",
+
+      "Resource": "arn:aws:states:::lambda:invoke",
+
+      "Parameters": {
+
+        "FunctionName": "approval-handler",
+
+        "Payload.$": "$"
+
+      },
+
+      "Next": "ExecuteRunbook"
+
+    },
+
+    "ExecuteRunbook": {
+
+      "Type": "Task",
+
+      "Resource": "arn:aws:states:::lambda:invoke",
+
+      "Parameters": {
+
+        "FunctionName": "remediation-executor",
+
+        "Payload.$": "$"
+
+      },
+
+      "End": true
+
+    }
+
+  }
+
+}
