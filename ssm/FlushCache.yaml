@@ -1,0 +1,21 @@
+description: Flush Redis Cache
+
+schemaVersion: '0.3'
+
+parameters:
+
+  ClusterId:
+
+    type: String
+
+mainSteps:
+
+- name: Flush
+
+  action: aws:runShellScript
+
+  inputs:
+
+    runCommand:
+
+      - redis-cli -h {{ ClusterId }} FLUSHALL
