@@ -1,0 +1,51 @@
+name: Deploy
+
+on:
+
+  push:
+
+    branches:
+
+      - main
+
+jobs:
+
+  terraform:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+
+      run:
+
+        working-directory: terraform
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - run: terraform init
+
+      - run: terraform validate
+
+      - run: terraform plan
+
+  python:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+
+        with:
+
+          python-version: "3.11"
+
+      - run: pip install -r lambda/requirements.txt
+
+      - run: python -m compileall lambda
