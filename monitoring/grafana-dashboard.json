@@ -1,0 +1,28 @@
+{
+  "title": "AI Self Healing Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "panels": [
+    {
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "title": "Memory",
+      "type": "timeseries"
+    },
+    {
+      "title": "Latency",
+      "type": "timeseries"
+    },
+    {
+      "title": "Error Rate",
+      "type": "timeseries"
+    },
+    {
+      "title": "Prediction Score",
+      "type": "gauge"
+    }
+  ]
+}
