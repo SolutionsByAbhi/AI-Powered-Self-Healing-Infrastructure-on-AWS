@@ -1,0 +1,25 @@
+description: Restart EC2 Instance
+
+schemaVersion: '0.3'
+
+assumeRole: "{{ AutomationAssumeRole }}"
+
+parameters:
+
+  InstanceId:
+
+    type: String
+
+mainSteps:
+
+- name: RestartInstance
+
+  action: aws:changeInstanceState
+
+  inputs:
+
+    InstanceIds:
+
+      - "{{ InstanceId }}"
+
+    DesiredState: running
