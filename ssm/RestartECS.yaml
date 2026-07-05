@@ -1,0 +1,31 @@
+description: Restart ECS Service
+
+schemaVersion: '0.3'
+
+parameters:
+
+  Cluster:
+
+    type: String
+
+  Service:
+
+    type: String
+
+mainSteps:
+
+- name: ForceDeployment
+
+  action: aws:executeAwsApi
+
+  inputs:
+
+    Service: ecs
+
+    Api: UpdateService
+
+    Cluster: "{{ Cluster }}"
+
+    Service: "{{ Service }}"
+
+    ForceNewDeployment: true
