@@ -1,0 +1,13 @@
+{
+  "service": "ecs",
+  "metrics": {
+    "cpu": 96,
+    "memory": 92,
+    "disk": 70,
+    "latency": 860,
+    "request_rate": 1400,
+    "error_rate": 0.41,
+    "network_in": 512,
+    "network_out": 178
+  }
+}
